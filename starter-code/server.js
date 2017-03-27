@@ -81,15 +81,24 @@ app.put('/articles/:id', function(request, response) {
   client.query(
   // TODO: Write a SQL query to update an ***author*** record
   // TODO: Add the required values from the request as data for the SQL query to interpolate
-    `Thing1`,
-    [Thing2]
+    `UPDATE authors
+    SET author = $1, "authorUrl = $2"
+    WHERE author_id = $3`,
+    [request.body.author, request.body.authorUrl, request.body.author_id]
   )
   .then(function() {
     // TODO: Write a SQL query to update an **article*** record
     // TODO: Add the required values from the request as data for the SQL query to interpolate
     client.query(
-      `Thing1`,
-      [Thing2]
+      `UPDATE articles
+      SET author_id = $1, title = $2, category = $3, "publishedOn" = $4, body = $5
+      WHERE article_id = $6`,
+      [request.body.author_id,
+        request.body.title,
+        request.body.category,
+        request.body.publishedOn,
+        request.body.body,
+        request.body.params.id]
     )
   })
   .then(function() {
@@ -112,7 +121,6 @@ app.delete('/articles/:id', function(request, response) {
     console.error(err)
   });
 });
-
 app.delete('/articles', function(request, response) {
   client.query('DELETE FROM articles')
   .then(function() {
