@@ -121,7 +121,6 @@ app.delete('/articles/:id', function(request, response) {
     console.error(err)
   });
 });
-
 app.delete('/articles', function(request, response) {
   client.query('DELETE FROM articles')
   .then(function() {
