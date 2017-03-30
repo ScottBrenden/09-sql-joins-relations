@@ -82,7 +82,7 @@ app.put('/articles/:id', function(request, response) {
   // TODO: Write a SQL query to update an ***author*** record
   // TODO: Add the required values from the request as data for the SQL query to interpolate
     `UPDATE authors
-    SET author = $1, "authorUrl = $2"
+    SET author = $1, "authorUrl" = $2
     WHERE author_id = $3`,
     [request.body.author, request.body.authorUrl, request.body.author_id]
   )
